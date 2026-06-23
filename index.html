@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleet Intelligence Analysis — Srishti | JIO BP Retail</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a2e;line-height:1.6}
+.hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%);color:white;padding:52px 40px 44px}
+.hero-tag{display:inline-block;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 14px;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px;color:#a8d4f5}
+.hero h1{font-size:30px;font-weight:600;margin-bottom:8px;line-height:1.25}
+.hero p{font-size:15px;color:#b0c4de;max-width:620px;margin-bottom:24px}
+.hero-meta{display:flex;gap:20px;flex-wrap:wrap}
+.hm{display:flex;align-items:center;gap:7px;font-size:13px;color:#a8d4f5}
+.hm svg{opacity:0.7}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
+.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:500}
+.tag-b{background:rgba(59,130,246,0.2);color:#93c5fd;border:1px solid rgba(59,130,246,0.3)}
+.tag-g{background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.25)}
+.tag-o{background:rgba(245,158,11,0.15);color:#fcd34d;border:1px solid rgba(245,158,11,0.25)}
+.tag-r{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.25)}
+
+.container{max-width:860px;margin:0 auto;padding:40px 24px}
+.section{margin-bottom:40px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6c757d;margin-bottom:14px}
+.section h2{font-size:20px;font-weight:600;color:#1a1a2e;margin-bottom:6px}
+.section p{font-size:14px;color:#495057;line-height:1.7}
+
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}
+.metric{background:white;border:1px solid #e9ecef;border-radius:10px;padding:16px;text-align:center}
+.metric .val{font-size:26px;font-weight:600;line-height:1;margin-bottom:4px}
+.metric .lbl{font-size:11px;color:#6c757d}
+
+.logic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
+.logic-card{background:white;border:1px solid #e9ecef;border-radius:10px;padding:16px}
+.logic-card .lc-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.logic-card .lc-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.logic-card h3{font-size:13px;font-weight:600;color:#1a1a2e}
+.logic-card p{font-size:12px;color:#495057;line-height:1.6}
+.logic-card .lc-sig{font-size:11px;font-weight:500;margin-top:6px;padding:2px 8px;border-radius:6px;display:inline-block}
+
+.layer-list{display:flex;flex-direction:column;gap:8px;margin:16px 0}
+.layer-item{display:flex;align-items:flex-start;gap:12px;background:white;border:1px solid #e9ecef;border-radius:8px;padding:12px 14px}
+.layer-dot{width:12px;height:12px;border-radius:50%;margin-top:3px;flex-shrink:0}
+.layer-line{width:20px;height:3px;border-radius:2px;margin-top:7px;flex-shrink:0}
+.layer-item h4{font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px}
+.layer-item p{font-size:12px;color:#6c757d;line-height:1.5}
+
+.map-preview{background:white;border:1px solid #e9ecef;border-radius:12px;padding:24px;margin:16px 0;position:relative}
+.map-preview canvas{border-radius:8px;display:block}
+.map-label{position:absolute;top:12px;right:12px;background:rgba(26,26,46,0.85);color:white;font-size:11px;padding:4px 10px;border-radius:6px}
+
+.insight-box{background:#f0f7ff;border:1px solid #bfdbfe;border-radius:10px;padding:16px;margin:16px 0}
+.insight-box h4{font-size:13px;font-weight:600;color:#1e40af;margin-bottom:6px}
+.insight-box p{font-size:13px;color:#1e40af;line-height:1.65}
+
+.tech-list{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.tech{display:inline-block;background:white;border:1px solid #dee2e6;border-radius:6px;padding:4px 10px;font-size:12px;color:#495057;font-weight:500}
+
+.timeline{border-left:2px solid #e9ecef;padding-left:20px;margin:16px 0}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-item::before{content:'';width:10px;height:10px;background:#1a1a2e;border-radius:50%;position:absolute;left:-26px;top:4px}
+.tl-item h4{font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px}
+.tl-item p{font-size:12px;color:#6c757d}
+
+.footer{background:#1a1a2e;color:#8899aa;text-align:center;padding:20px;font-size:12px}
+.footer p{margin-bottom:4px}
+.footer .note{font-size:11px;color:#4a5568;max-width:500px;margin:10px auto 0}
+
+.divider{border:none;border-top:1px solid #e9ecef;margin:32px 0}
+
+@media(max-width:600px){
+  .hero{padding:32px 20px 28px}
+  .hero h1{font-size:22px}
+  .container{padding:24px 16px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Data Intelligence Work Sample</div>
+  <h1>GPS & Fleet NRD Intelligence Analysis<br>JIO BP Retail Fuel Operations — Pan India</h1>
+  <p>End-to-end analytical framework to detect suspected fuel pilferage, GPS tampering, and network dead zones across 4,363 depot-to-RO tanker routes using real GPS tracking and alert data.</p>
+  <div class="hero-meta">
+    <div class="hm">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      May 2026
+    </div>
+    <div class="hm">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      Pan India — 25 depots
+    </div>
+    <div class="hm">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      R&D Mode — Self-initiated analytical framework
+    </div>
+  </div>
+  <div class="tag-row">
+    <span class="tag tag-b">Python</span>
+    <span class="tag tag-b">Pandas</span>
+    <span class="tag tag-b">PowerBI</span>
+    <span class="tag tag-b">Azure Maps</span>
+    <span class="tag tag-g">GPS / VTS Data</span>
+    <span class="tag tag-g">Fleet Intelligence</span>
+    <span class="tag tag-o">GeoJSON</span>
+    <span class="tag tag-o">Route Analysis</span>
+    <span class="tag tag-r">Pilferage Detection</span>
+    <span class="tag tag-r">GPS Tampering</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-label">The problem</div>
+    <p>Fuel tanker vehicles across India occasionally stop reporting GPS data — a condition called NRD (Non-Reporting Device). The business needed to know: <strong>is this a technical fault, a network dead zone, or deliberate GPS tampering linked to fuel theft?</strong> No framework existed to distinguish between these three causes at scale across 25 depots and thousands of monthly trips.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Scale of data processed</div>
+    <div class="metric-grid">
+      <div class="metric"><div class="val" style="color:#1a1a2e">1,765</div><div class="lbl">NRD events detected<br>May 2026</div></div>
+      <div class="metric"><div class="val" style="color:#DC2626">373</div><div class="lbl">Suspected pilferage<br>cases flagged</div></div>
+      <div class="metric"><div class="val" style="color:#7C3AED">273</div><div class="lbl">GPS tampering<br>events detected</div></div>
+      <div class="metric"><div class="val" style="color:#2563EB">1,119</div><div class="lbl">Network dead zone<br>events</div></div>
+      <div class="metric"><div class="val" style="color:#1a1a2e">55K+</div><div class="lbl">Power disconnect<br>alerts processed</div></div>
+      <div class="metric"><div class="val" style="color:#1a1a2e">4,363</div><div class="lbl">Depot→RO routes<br>mapped</div></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">The analytical logic — self-developed</div>
+    <p style="margin-bottom:14px">The core classification framework was designed independently based on domain reasoning about how GPS devices physically work:</p>
+    <div class="logic-grid">
+      <div class="logic-card">
+        <div class="lc-head">
+          <div class="lc-icon" style="background:#FEE2E2">🔴</div>
+          <h3>Suspected Pilferage</h3>
+        </div>
+        <p>Vehicle showed Route Deviation (RD) alert — moved more than 500m off approved route — then went into NRD within 48 hours. The corridor from RD point to NRD point is the suspected theft zone.</p>
+        <span class="lc-sig" style="background:#FEE2E2;color:#B91C1C">RD before NRD → dark corridor</span>
+      </div>
+      <div class="logic-card">
+        <div class="lc-head">
+          <div class="lc-icon" style="background:#EDE9FE">🟣</div>
+          <h3>GPS Tampering</h3>
+        </div>
+        <p>Power Disconnect (DC) alert fired during the NRD window. Key insight: if GPS comes back online far from the depot (beyond 50% of route distance), it was not repaired at depot — device was intentionally switched off and on.</p>
+        <span class="lc-sig" style="background:#EDE9FE;color:#5B21B6">DC + NRD + far reactivation</span>
+      </div>
+      <div class="logic-card">
+        <div class="lc-head">
+          <div class="lc-icon" style="background:#DBEAFE">🔵</div>
+          <h3>Network Dead Zone</h3>
+        </div>
+        <p>No DC alert, no RD alert. Tracking Interruption (TI) alert present. Device next came back online near the depot. Vehicle was on correct route — signal simply lost in a known coverage gap.</p>
+        <span class="lc-sig" style="background:#DBEAFE;color:#1D4ED8">TI alert + depot reactivation</span>
+      </div>
+    </div>
+    <div class="insight-box">
+      <h4>Key analytical insight — original domain reasoning</h4>
+      <p>A broken GPS device cannot emit any alert until it is physically repaired. Repair happens at the depot or an authorised workshop. Therefore: if the next alert after an NRD appears far from the depot (beyond 50% of the route distance), the device was <em>not</em> repaired — it was deliberately turned off and back on. This single insight is the cornerstone that separates genuine device faults from intentional tampering, and makes the framework analytically defensible.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">What was built</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <h4>Data pipeline — Python + Pandas (vectorized)</h4>
+        <p>Combined JHS (Journey History) and AOT (Alert On Trip) data — 212,000+ alert records — into a unified alert stream. Used searchsorted and merge-asof for fast next-alert lookup across 1,765 NRD events. Row-by-row iteration would have timed out; vectorized merges ran in under 30 seconds.</p>
+      </div>
+      <div class="tl-item">
+        <h4>NRD classification engine</h4>
+        <p>For each NRD event: checked a ±6-hour window for DC alerts (GPS tampering), checked 48 hours prior for RD alerts (pilferage), checked TI alerts in NRD window (network). Output: classified table with category, flags, corridor coordinates.</p>
+      </div>
+      <div class="tl-item">
+        <h4>JRM route master — 4,363 routes extracted</h4>
+        <p>Parsed 600+ JRM PDF driver card documents across 25 depots using pdfplumber to extract depot names, RO coordinates, waypoints, and known network issue locations. Cross-referenced with JRM Excel for lat/lon coordinates.</p>
+      </div>
+      <div class="tl-item">
+        <h4>Azure Maps route API integration</h4>
+        <p>Python script calls Azure Maps Route API to generate real road polylines (not straight lines) for all 4,363 routes. Output saved as GeoJSON FeatureCollection for PowerBI reference layer — gives Google Maps-style road-following route curves.</p>
+      </div>
+      <div class="tl-item">
+        <h4>PowerBI intelligence dashboard</h4>
+        <p>Multi-layer interactive map: blue JRM routes, orange RD deviation points, purple DC corridors, red NRD bubbles (sized by duration), red pilferage corridor lines (RD→NRD segment), vehicle clustering with risk-color gradient (green→orange→red→dark red), 10km impact radius zones. Cross-filtering slicers by category, depot, zone, and duration.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">Map visualization — layer design</div>
+    <div class="layer-list">
+      <div class="layer-item">
+        <div class="layer-line" style="background:#2563EB"></div>
+        <div><h4>Blue — Approved JRM route (Depot → RO)</h4><p>4,363 real road routes from JRM data. Loaded as GeoJSON reference layer in Azure Maps. Follows actual road network, not straight lines.</p></div>
+      </div>
+      <div class="layer-item">
+        <div class="layer-dot" style="background:#F59E0B"></div>
+        <div><h4>Orange — Route deviation point</h4><p>Where the vehicle left its approved route (>500m off route). Start of the suspicious zone.</p></div>
+      </div>
+      <div class="layer-item">
+        <div class="layer-dot" style="background:#7C3AED"></div>
+        <div><h4>Purple — Power disconnect point</h4><p>Where GPS power was cut. If this overlaps with NRD → GPS tampering confirmed.</p></div>
+      </div>
+      <div class="layer-item">
+        <div class="layer-line" style="background:#DC2626"></div>
+        <div><h4>Red line — Pilferage corridor (RD → NRD)</h4><p>The exact road segment where vehicle was off-route AND went dark. This is the untracked stretch where product likely left the truck. Precise, short, actionable.</p></div>
+      </div>
+      <div class="layer-item">
+        <div class="layer-dot" style="background:#DC2626"></div>
+        <div><h4>Red/Purple/Blue bubble — NRD alert point</h4><p>Where device went silent. Colored by category. Sized by duration hours (bigger = longer NRD). Hovering shows vehicle number, duration, depot, category.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">Tools and technologies</div>
+    <div class="tech-list">
+      <span class="tech">Python 3.12</span>
+      <span class="tech">Pandas (vectorized)</span>
+      <span class="tech">pdfplumber</span>
+      <span class="tech">openpyxl</span>
+      <span class="tech">Azure Maps Route API</span>
+      <span class="tech">GeoJSON</span>
+      <span class="tech">PowerBI Desktop (PPU)</span>
+      <span class="tech">Power Query (M)</span>
+      <span class="tech">DAX (RANKX, DATEADD)</span>
+      <span class="tech">Azure Maps Visual</span>
+      <span class="tech">Icon Map (AppSource)</span>
+      <span class="tech">Excel (JRM, JHS, AOT)</span>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">What this analysis enables</div>
+    <p>Before this framework, a non-reporting vehicle was either logged as a generic "device fault" or flagged manually with no systematic way to distinguish tampering from genuine faults. After:</p>
+    <div class="logic-grid" style="margin-top:14px">
+      <div class="logic-card">
+        <h3 style="margin-bottom:6px">Operations team</h3>
+        <p>Receives exact road segment (RD→NRD coordinates) where interception is needed — not just "somewhere on this route."</p>
+      </div>
+      <div class="logic-card">
+        <h3 style="margin-bottom:6px">Security team</h3>
+        <p>Gets vehicle number, date/time, depot, and evidence chain (RD+DC+NRD) for cases that warrant FIR or driver action.</p>
+      </div>
+      <div class="logic-card">
+        <h3 style="margin-bottom:6px">Network team</h3>
+        <p>Receives list of routes and coordinates with repeated TI alerts — these are confirmed dead zones needing telecom intervention, not investigation.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Fleet Intelligence Analysis — May 2026 | Reliance BP Mobility Limited (JIO BP)</p>
+  <p class="note">This portfolio page demonstrates analytical methodology, framework design, and technical approach. No confidential commercial data, client names, revenue figures, or proprietary business information is disclosed. All data shown is either publicly available (route structures, depot names) or aggregated/anonymised.</p>
+</div>
+
+</body>
+</html>
